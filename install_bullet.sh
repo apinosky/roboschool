@@ -14,18 +14,17 @@ make -j4 > /tmp/bullet_make.log || (tail -100 /tmp/bullet_make.log; exit 1)
 make install > /tmp/bullet_install.log || (tail -100 /tmp/bullet_install.log; exit 1)
 
 if [ $(uname) == 'Darwin' ]; then
-    
+
     for lib in $(find $BULLET_PATH/lib -name "*.dylib"); do
         install_name_tool -id $lib $lib
-        for dep in $(otool -L $lib | grep "@rpath" | awk '{print $1}'); do 
+        for dep in $(otool -L $lib | grep "@rpath" | awk '{print $1}'); do
             install_name_tool -change $dep "$BULLET_PATH/lib/${dep##@rpath/}" $lib
         done
     done
 fi
 if [ $(uname) == 'Linux' ]; then
-    
+
     for lib in $(find $BULLET_PATH/lib -name "*.so.2.87"); do
         patchelf --set-rpath $BULLET_PATH/lib $lib
     done
 fi
-

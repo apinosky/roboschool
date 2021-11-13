@@ -15,3 +15,4 @@ roboschool/.qt_plugins
 *.so
 *.swp
 __pycache__
+build*

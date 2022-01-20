@@ -6,6 +6,7 @@ if [[ $(uname) == 'Linux' ]]; then
     PYTHON_BIN=$(readlink -f $(which python))
     PYTHON_ROOT=${PYTHON_BIN%/bin/python*}
     PYTHON_VER=${PYTHON_BIN#$PYTHON_ROOT/bin/python}
+    PYTHON_NO=$(python -V 2>&1 | sed 's/.* \([0-9]\).\([0-9]\).*/\1.\2/')
 fi
 if [[ $(uname) == 'Darwin' ]]; then
     brew install coreutils
@@ -19,4 +20,4 @@ fi
 export PKG_CONFIG_PATH=${PYTHON_ROOT}/lib/pkgconfig:$BULLET_PATH/lib/pkgconfig/:$PKG_CONFIG_PATH
 export CPATH=$CPATH:${PYTHON_ROOT}/include/python${PYTHON_VER}m:$HOME/.boost/include
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BULLET_PATH/lib:$HOME/.boost/lib
-export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:/usr/include/python3/"
+export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:/usr/include/python${PYTHON_NO}/"

@@ -16,9 +16,9 @@ ifeq ($(UNAME),Linux)
     ifneq (,$(findstring linuxbrew,$(HAVE_PYTHON3)))
       $(info Linux, python3, linuxbrew branch)
       BOOST_PYTHON3_POSTFIX = 3
-    else ifneq (,$(findstring conda,$(HAVE_PYTHON3)))
-      $(info Linux, python3, anaconda branch, will query Ubuntu python3 for boost_python)
-      BOOST_PYTHON3_POSTFIX = -py$(shell /usr/bin/python3 -c "import sys; print('%i%i' % sys.version_info[:2])")
+    # else ifneq (,$(findstring conda,$(HAVE_PYTHON3)))
+    #   $(info Linux, python3, anaconda branch, will query Ubuntu python3 for boost_python)
+    #   BOOST_PYTHON3_POSTFIX = -py$(shell /usr/bin/python3 -c "import sys; print('%i%i' % sys.version_info[:2])")
     else
       $(info Linux, python3, Ubuntu branch)
       BOOST_PYTHON3_POSTFIX = $(shell python3 -c "import sys; print('%i%i' % sys.version_info[:2])")
